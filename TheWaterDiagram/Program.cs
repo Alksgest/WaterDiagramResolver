@@ -13,9 +13,24 @@ namespace TheWaterDiagram
 
         public static int[] data1 = { 4, 3, 4, 7, 6, 7 };
 
+        public static string sampleString = "5, 2, 1, 1, 0, 1, 1, 2, 2, 4";
+
+        private static int[] ParseData(string[] args)
+        {
+            if (args.Length < 2)
+                throw new ArgumentException("There are no input data");
+
+            string strData = args[1].Replace(" ", "");
+            int[] data = strData.ToCharArray().Select(c => (int)Char.GetNumericValue(c)).Where(i => i != -1).ToArray();
+
+            return data;
+        }
+
         static void Main(string[] args)
         {
-            IWaterDiagramResolver resolver = new WaterDiagramResolver(data1);
+            var argsData = ParseData(new string[] { "path", sampleString });
+
+            IWaterDiagramResolver resolver = new WaterDiagramResolver(argsData);
 
             int result = resolver.ResolveVolume();
             Console.WriteLine("Result : " + result);
