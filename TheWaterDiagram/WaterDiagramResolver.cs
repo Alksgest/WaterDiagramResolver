@@ -2,7 +2,7 @@
 
 namespace TheWaterDiagram
 {
-    public class WaterDiagramResolver
+    public class WaterDiagramResolver : IWaterDiagramResolver
     {
         private int[] array;
 
@@ -28,13 +28,8 @@ namespace TheWaterDiagram
             int maxSize = maxDeep * gape.GetDiff();
 
             int size = maxSize;
-            //Console.WriteLine($"maxSize = {size}");
-            for(int i = gape.leftIndex + 1; i < gape.rightIndex; ++i)
-            {
-                //Console.WriteLine($"-{this.array[i]}");
+            for (int i = gape.leftIndex + 1; i < gape.rightIndex; ++i)
                 size -= this.array[i];
-                //Console.WriteLine($"size = {size}");
-            }
 
             return size;
         }
@@ -48,7 +43,6 @@ namespace TheWaterDiagram
                 var gape = GetNextGape(left);
                 left = gape.rightIndex;
                 gapes.Add(gape);
-                //Console.WriteLine(gape);
             }
             return gapes;
         }
